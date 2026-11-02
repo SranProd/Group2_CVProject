@@ -20,7 +20,10 @@ def draw_trajectory(csv_path, output_name, is_delbot=False):
         df = pd.read_csv(csv_path)
         if "client timestamp" in df.columns:
             df["timestamp"] = df["client timestamp"]
-    
+            
+    if df["timestamp"].diff().mean() > 1.0:
+        df["timestamp"] = df["timestamp"] / 1000.0
+        
     prev_x, prev_y, prev_t = None, None, None
     
     for index, row in df.iterrows():
