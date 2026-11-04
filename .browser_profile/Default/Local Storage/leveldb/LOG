@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 2026/11/04-12:05:21.513 368934d Reusing MANIFEST /Users/sukhmansran/Desktop/School Stuff/Fall 2026/IAT 360/Assignment Resources/Group2_CVProject/.browser_profile/Default/Local Storage/leveldb/MANIFEST-000001
 2026/11/04-12:05:21.513 368934d Recovering log #3
 2026/11/04-12:05:21.514 368934d Reusing old log /Users/sukhmansran/Desktop/School Stuff/Fall 2026/IAT 360/Assignment Resources/Group2_CVProject/.browser_profile/Default/Local Storage/leveldb/000003.log 
+=======
+2026/11/04-13:48:52.323 36a9a83 Reusing MANIFEST /Users/sukhmansran/Desktop/School Stuff/Fall 2026/IAT 360/Assignment Resources/Group2_CVProject/.browser_profile/Default/Local Storage/leveldb/MANIFEST-000001
+2026/11/04-13:48:52.323 36a9a83 Recovering log #3
+2026/11/04-13:48:52.324 36a9a83 Reusing old log /Users/sukhmansran/Desktop/School Stuff/Fall 2026/IAT 360/Assignment Resources/Group2_CVProject/.browser_profile/Default/Local Storage/leveldb/000003.log 
+>>>>>>> main

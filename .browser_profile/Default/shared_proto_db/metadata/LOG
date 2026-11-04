@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 2026/11/04-12:05:22.167 3689303 Reusing MANIFEST /Users/sukhmansran/Desktop/School Stuff/Fall 2026/IAT 360/Assignment Resources/Group2_CVProject/.browser_profile/Default/shared_proto_db/metadata/MANIFEST-000001
 2026/11/04-12:05:22.167 3689303 Recovering log #3
 2026/11/04-12:05:22.170 3689303 Reusing old log /Users/sukhmansran/Desktop/School Stuff/Fall 2026/IAT 360/Assignment Resources/Group2_CVProject/.browser_profile/Default/shared_proto_db/metadata/000003.log 
+=======
+2026/11/04-13:48:52.606 36a9a39 Reusing MANIFEST /Users/sukhmansran/Desktop/School Stuff/Fall 2026/IAT 360/Assignment Resources/Group2_CVProject/.browser_profile/Default/shared_proto_db/metadata/MANIFEST-000001
+2026/11/04-13:48:52.606 36a9a39 Recovering log #3
+2026/11/04-13:48:52.607 36a9a39 Reusing old log /Users/sukhmansran/Desktop/School Stuff/Fall 2026/IAT 360/Assignment Resources/Group2_CVProject/.browser_profile/Default/shared_proto_db/metadata/000003.log 
+>>>>>>> main
