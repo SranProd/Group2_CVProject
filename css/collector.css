@@ -1,0 +1,296 @@
+/* styles for collector.html */
+
+/* fonts from the portfolio (needs the fonts folder next to collector.html,
+   otherwise it just uses Helvetica/Arial) */
+@font-face {
+  font-family: "Styrene B";
+  src: url("../fonts/StyreneB-Light-Trial-BF63f6cbe64b47b.otf");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Styrene B";
+  src: url("../fonts/StyreneB-Regular-Trial-BF63f6cbe9db1d5.otf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Styrene B";
+  src: url("../fonts/StyreneB-Bold-Trial-BF63f6cbe9f13bb.otf");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "GT America Mono";
+  src: url("../fonts/GT-America-Mono-Medium-Trial.otf");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Jersey 10 Charted";
+  src: url("../fonts/Jersey10Charted-Regular.ttf");
+  font-weight: 400;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  font-family: "Styrene B", "Helvetica Neue", Arial, sans-serif;
+  background: #252d22;
+  color: #fff;
+  user-select: none;
+}
+
+/* elements are positioned by their center, using % of the window
+   (positions are set in LAYOUT below, robot.py uses the same values) */
+.abs {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+/* nav bar */
+.nav-line {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 11%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+}
+.nav-item {
+  font-size: clamp(0.8rem, 1vw, 1rem);
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 6px 4px;
+  white-space: nowrap;
+}
+.nav-item.brand {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.nav-item.active {
+  border-bottom: 2px solid #fff;
+}
+
+/* instruction text under the nav */
+#instr {
+  top: 15.5%;
+  left: 50%;
+  font-family: "GT America Mono", monospace;
+  font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+  color: #e8b7a4;
+  white-space: nowrap;
+}
+
+/* project cards */
+.card {
+  width: 36vw;
+  height: 23vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+.card:hover {
+  transform: translate(-50%, calc(-50% - 3px));
+}
+.card-img {
+  flex: 1;
+  position: relative;
+  background: #c8c5bf center / cover no-repeat;
+}
+.card-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  transition: opacity 0.3s;
+}
+.card:hover .card-img::after {
+  opacity: 0;
+}
+.card-title {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.5rem;
+  z-index: 1;
+  font-family: "Jersey 10 Charted", "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  color: #c9c9c9;
+}
+.card:hover .card-title {
+  color: #1a1a1a;
+}
+.card-info {
+  padding: 0.6rem 0.9rem;
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+.card-info h6 {
+  font-family: "GT America Mono", monospace;
+  font-weight: 500;
+  font-size: clamp(0.7rem, 0.9vw, 0.85rem);
+  color: #a06e5b;
+}
+.project-card .card-info {
+  background: #ffd0bd;
+}
+.casestudy-card .card-info {
+  background: #fff9ca;
+}
+.casestudy-card .card-info h6 {
+  color: #8f853f;
+}
+.card:hover .card-info h6 {
+  color: #0012d7;
+}
+.pet-adoption-img {
+  background-image: url("../img/pet-adoption.png");
+}
+.le-cakery-img {
+  background-image: url("../img/leCakeryHome.png");
+}
+.permit-extension-img {
+  background-image: url("../img/studyPermitExtensionHome.png");
+}
+.canvas-img {
+  background-image: url("../img/canvasHome.png");
+}
+
+/* footer */
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 18%;
+  background: #67754c;
+}
+.footer h2 {
+  font-size: clamp(1rem, 1.8vw, 1.6rem);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.footer-btn {
+  font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+  color: #4a6142;
+  background: #fff;
+  text-decoration: none;
+  padding: 0.8rem 2.6rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.footer-btn:hover {
+  background: #d5d5d5;
+}
+
+/* highlight for the current target */
+.glow {
+  outline: 4px solid #e8b7a4;
+  outline-offset: 6px;
+  border-radius: 4px;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  50% {
+    outline-color: rgba(232, 183, 164, 0.25);
+  }
+}
+
+/* overlay screens (start, done, saved) */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 25, 18, 0.82);
+  z-index: 10;
+}
+.overlay.on {
+  display: block;
+}
+.panel-title {
+  top: 9%;
+  left: 50%;
+  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.btn {
+  font-family: inherit;
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  color: #4a6142;
+  background: #fff;
+  border: 0;
+  padding: 0.9rem 3rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #d5d5d5;
+}
+.btn:disabled {
+  background: #8a9180;
+  color: #3b4236;
+  cursor: default;
+}
+#intro {
+  top: 33%;
+  left: 50%;
+  width: min(640px, 90vw);
+  text-align: center;
+  line-height: 1.6;
+}
+#intro h1 {
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  margin-bottom: 0.8rem;
+}
+#intro p {
+  color: #e6e9e0;
+  margin-bottom: 0.6rem;
+}
+#device {
+  top: 52%;
+  left: 50%;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+#device label {
+  margin: 0 12px;
+  cursor: pointer;
+}
+#doneText {
+  top: 42%;
+  left: 50%;
+  text-align: center;
+  white-space: nowrap;
+}
+#saved {
+  top: 45%;
+  left: 50%;
+  text-align: center;
+  line-height: 1.8;
+}
+
+/* pink corner squares, only shown in bot mode before starting.
+   robot.py looks for these in a screenshot to find the page */
+.mark {
+  display: none;
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: #ff00ff;
+  z-index: 99;
+}

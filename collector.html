@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Group 2 — Human or Bot? Mouse Behaviour Study</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/collector.css" />
+  </head>
+  <body>
+    <div class="mark" style="left: 0; top: 0"></div>
+    <div class="mark" style="right: 0; bottom: 0"></div>
+
+    <!-- page content -->
+    <a class="nav-item brand abs" data-k="brand">GROUP 2</a>
+    <a class="nav-item abs active" data-k="work">WORK</a>
+    <a class="nav-item abs" data-k="about">ABOUT</a>
+    <a class="nav-item abs" data-k="resume">RESUME</a>
+    <a class="nav-item abs" data-k="contact">CONTACT</a>
+    <div class="nav-line"></div>
+    <div class="abs" id="instr"></div>
+
+    <a class="card project-card abs" data-k="pet">
+      <div class="card-img pet-adoption-img">
+        <h3 class="card-title">IAT201 Broker 1</h3>
+      </div>
+      <div class="card-info">
+        <h6>UI/UX Design</h6>
+        <h6>HTML</h6>
+        <h6>CSS</h6>
+      </div>
+    </a>
+    <a class="card project-card abs" data-k="cakery">
+      <div class="card-img le-cakery-img">
+        <h3 class="card-title">IAT238 MVRDV</h3>
+      </div>
+      <div class="card-info">
+        <h6>JavaScript</h6>
+        <h6>HTML</h6>
+        <h6>CSS</h6>
+      </div>
+    </a>
+    <a class="card casestudy-card abs" data-k="permit">
+      <div class="card-img permit-extension-img">
+        <h3 class="card-title">IAT 334 Feature Design</h3>
+      </div>
+      <div class="card-info">
+        <h6>UI/UX Design</h6>
+        <h6>Figma AI</h6>
+        <h6>Evidence Based Design</h6>
+      </div>
+    </a>
+    <a class="card casestudy-card abs" data-k="canvas">
+      <div class="card-img canvas-img">
+        <h3 class="card-title">IAT 167 Character Design</h3>
+      </div>
+      <div class="card-info">
+        <h6>UI/UX Design</h6>
+        <h6>Adobe Photoshop</h6>
+        <h6>Figma</h6>
+      </div>
+    </a>
+
+    <footer class="footer"></footer>
+    <h2 class="abs footer-h" style="z-index: 1">
+      Group 2 will finish this project beautifully
+    </h2>
+    <a class="footer-btn abs" data-k="styleguide" style="z-index: 1"
+      >I believe</a
+    >
+    <a class="footer-btn abs" data-k="citation" style="z-index: 1">I trust</a>
+    <a class="footer-btn abs" data-k="github" style="z-index: 1">I can</a>
+
+    <!-- start screen -->
+    <div class="overlay on" id="ovStart">
+      <div class="abs" id="intro">
+        <h1>Human or Bot? Mouse Study</h1>
+        <p>
+          <b>Click the 6 highlighted items</b> on this page, one after another
+          (they change every time), then click <b>OK</b>.
+        </p>
+        <p>Only mouse position, clicks and timing are recorded.</p>
+        <p style="opacity: 0.7">Tip: press F11 for full screen first.</p>
+      </div>
+      <div class="abs" id="device">
+        Using:
+        <label
+          ><input type="radio" name="dev" value="mouse" checked /> Mouse</label
+        >
+        <label
+          ><input type="radio" name="dev" value="trackpad" /> Trackpad</label
+        >
+      </div>
+      <button class="btn abs" id="startBtn">Start</button>
+    </div>
+
+    <!-- done screen -->
+    <div class="overlay" id="ovDone">
+      <div class="abs" id="doneText">
+        <h2 style="padding: 0">All done!</h2>
+        <p>Click OK to save this session.</p>
+      </div>
+      <button class="btn abs" id="okBtn">OK</button>
+    </div>
+
+    <!-- saved screen -->
+    <div class="overlay" id="ovSaved">
+      <div class="abs" id="saved">
+        <h2 style="padding: 0">Thanks! Session saved.</h2>
+        <span id="fname"></span><br /><br />
+        <button class="btn" onclick="location.reload()">
+          Start another session
+        </button>
+      </div>
+    </div>
+
+    <script src="js/collector.js"></script>
+  </body>
+</html>
