@@ -1,5 +1,3 @@
-2026/11/04-00:27:25.433 1128c Log #3: 1 ops saved to Table #4 OK
-2026/11/04-00:27:25.440 1128c Archiving C:\Users\jihye\Desktop\IAT360\CVProjectGroup2\Group2_CVProject\.browser_profile\Default\Site Characteristics Database/000003.log: OK
-2026/11/04-00:27:25.440 1128c Table #4: 1 entries OK
-2026/11/04-00:27:25.446 1128c Archiving C:\Users\jihye\Desktop\IAT360\CVProjectGroup2\Group2_CVProject\.browser_profile\Default\Site Characteristics Database/MANIFEST-000001: OK
-2026/11/04-00:27:25.462 1128c **** Repaired leveldb C:\Users\jihye\Desktop\IAT360\CVProjectGroup2\Group2_CVProject\.browser_profile\Default\Site Characteristics Database; recovered 1 files; 130 bytes. Some data may have been lost. ****
+2026/11/04-11:03:55.700 367d3b4 Reusing MANIFEST /Users/sukhmansran/Desktop/School Stuff/Fall 2026/IAT 360/Assignment Resources/Group2_CVProject/.browser_profile/Default/Site Characteristics Database/MANIFEST-000001
+2026/11/04-11:03:55.703 367d3b4 Recovering log #6
+2026/11/04-11:03:55.703 367d3b4 Reusing old log /Users/sukhmansran/Desktop/School Stuff/Fall 2026/IAT 360/Assignment Resources/Group2_CVProject/.browser_profile/Default/Site Characteristics Database/000006.log 
