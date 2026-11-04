@@ -218,3 +218,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+#additional ignores to keep security
+.browser_profile/
+missed_*.png
+dataset/
+.env
