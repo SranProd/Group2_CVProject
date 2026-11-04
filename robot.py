@@ -11,10 +11,10 @@ Levels:
              changes, choppy movement. same speed/pauses/clicks every time
     medium - curves and arcs, eased speed, random delays, sometimes teleports
     hard   - tries to look human: curved paths, speed depends on distance,
-             small shaking, overshooting the target, random pauses
+             small shaking, overshoooting the target, random pauses
 
 Don't touch the mouse while it's running.
-To stop it, move the mouse into a corner of the screen.
+To stop it immediately, press the ESC key (or move the mouse into a screen corner).
 """
 import math
 import random
@@ -23,11 +23,32 @@ import time
 
 import pyautogui
 from PIL import ImageChops, ImageGrab
+from pynput import keyboard
 
 from browser import DATA, HERE, Session
 
 pyautogui.FAILSAFE = True
 pyautogui.PAUSE = 0
+
+# Global ESC key kill switch
+STOP_BOT = False
+
+def _on_press(key):
+    global STOP_BOT
+    if key == keyboard.Key.esc:
+        STOP_BOT = True
+
+keyboard.Listener(on_press=_on_press, daemon=True).start()
+
+def check_stop():
+    if STOP_BOT:
+        raise pyautogui.FailSafeException
+
+def safe_sleep(duration):
+    end = time.perf_counter() + duration
+    while time.perf_counter() < end:
+        check_stop()
+        time.sleep(min(0.02, max(0.0, end - time.perf_counter())))
 
 # positions as fractions of the page (same as LAYOUT in collector.html)
 START   = (0.50, 0.62)
@@ -74,13 +95,14 @@ def calibrate(timeout=25):
     end = time.time() + timeout
     img = None
     while time.time() < end:
+        check_stop()
         img = ImageGrab.grab().convert("RGB")
         box = _pink_mask(img).getbbox()
         if box and box[2] - box[0] > 300 and box[3] - box[1] > 300:
             kx, ky = sw / img.width, sh / img.height     # screenshots on mac are 2x size
             VIEW = (box[0] * kx, box[1] * ky, (box[2] - box[0]) * kx, (box[3] - box[1]) * ky)
             return True
-        time.sleep(0.5)
+        safe_sleep(0.5)
     if img is not None:                                  # save screenshot for debugging
         img.save(HERE / "calibration_debug.png")
     VIEW = (0, 0, sw, sh)                                # if not found, assume full screen
@@ -110,6 +132,7 @@ def play(points, duration):
     dt = duration / max(1, len(points))
     nxt = time.perf_counter()
     for x, y in points:
+        check_stop()
         pyautogui.moveTo(int(round(x)), int(round(y)))
         nxt += dt
         wait = nxt - time.perf_counter()
@@ -207,6 +230,7 @@ class Bot:
         play(pts, duration)
 
     def move_to(self, target):
+        check_stop()
         p0 = pyautogui.position()
         dist = math.hypot(target[0] - p0[0], target[1] - p0[1])
         if self.level == "easy":
@@ -243,7 +267,7 @@ class Bot:
                 over = dist * random.uniform(0.03, 0.09)
                 aim = (target[0] + ux * over + random.gauss(0, 6), target[1] + uy * over + random.gauss(0, 6))
                 self.curve(aim, dur * 0.85, bend=lambda: random.gauss(0, 0.12), ease=min_jerk, tremor=0.8)
-                time.sleep(random.uniform(0.03, 0.12))
+                safe_sleep(random.uniform(0.03, 0.12))
                 self.curve(target, random.uniform(0.12, 0.25), bend=lambda: random.gauss(0, 0.2), ease=min_jerk, tremor=0.5)
             else:
                 self.curve(target, dur, bend=lambda: random.gauss(0, 0.12), ease=min_jerk, tremor=0.8)
@@ -258,12 +282,13 @@ class Bot:
 
     # clicking
     def click(self):
+        check_stop()
         if self.level == "easy":
-            pyautogui.mouseDown(); time.sleep(self.hold); pyautogui.mouseUp()
+            pyautogui.mouseDown(); safe_sleep(self.hold); pyautogui.mouseUp()
             return
-        time.sleep(random.uniform(0.05, 0.3) if self.level == "medium" else random.uniform(0.08, 0.35))
+        safe_sleep(random.uniform(0.05, 0.3) if self.level == "medium" else random.uniform(0.08, 0.35))
         hold = random.uniform(0.06, 0.14) if self.level == "medium" else max(0.04, random.gauss(0.10, 0.025))
-        pyautogui.mouseDown(); time.sleep(hold); pyautogui.mouseUp()
+        pyautogui.mouseDown(); safe_sleep(hold); pyautogui.mouseUp()
 
     def go_click(self, frac, sx=20, sy=None):
         self.move_to(self.aim(frac, sx, sx if sy is None else sy))
@@ -271,18 +296,20 @@ class Bot:
 
     def think(self):
         # pause between clicks
+        check_stop()
         if self.level == "easy":
-            time.sleep(self.pause)
+            safe_sleep(self.pause)
         elif self.level == "medium":
-            time.sleep(random.uniform(0.2, 1.0))
+            safe_sleep(random.uniform(0.2, 1.0))
         else:
             end = time.perf_counter() + random.uniform(0.3, 1.5)
             while time.perf_counter() < end: # small random movements while waiting
+                check_stop()
                 if random.random() < 0.3:
                     x, y = pyautogui.position()
                     self.curve((x + random.gauss(0, 15), y + random.gauss(0, 10)),
                                random.uniform(0.1, 0.3), bend=lambda: random.gauss(0, 0.2), ease=min_jerk, tremor=0.5)
-                time.sleep(random.uniform(0.05, 0.2))
+                safe_sleep(random.uniform(0.05, 0.2))
 
     # one full session: start, 6 clicks, OK
     def run(self, order):
@@ -300,17 +327,17 @@ def run_session(level):
     # random 6 items, same as the page does for humans
     order = random.sample(list(ITEMS), N_CLICKS)
     s = Session(label="bot", level=level, extra={"order": ",".join(order)})
-    if not calibrate(): # wait for the page to open
-        print("  Couldn't find the pink corner markers - assuming the page fills the screen.")
-        print("  (Saved what the robot saw as calibration_debug.png)")
-    time.sleep(0.5)
-    # start from a random spot (recording only starts after Start is clicked)
-    pyautogui.moveTo(*px((random.uniform(0.15, 0.85), random.uniform(0.15, 0.85))))
     try:
+        if not calibrate(): # wait for the page to open
+            print("  Couldn't find the pink corner markers - assuming the page fills the screen.")
+            print("  (Saved what the robot saw as calibration_debug.png)")
+        safe_sleep(2.0)
+        # start from a random spot (recording only starts after Start is clicked)
+        pyautogui.moveTo(*px((random.uniform(0.15, 0.85), random.uniform(0.15, 0.85))))
         Bot(level).run(order)
     except pyautogui.FailSafeException:
         s.close()
-        print("Emergency stop - this session was not saved.")
+        print("Emergency stop (ESC or corner) - this session was not saved.")
         return "stop"
     f = s.wait_for_file(timeout=10)
     if not f:
@@ -339,9 +366,15 @@ def show_progress():
 
 
 def one_session(level):
+    global STOP_BOT
+    STOP_BOT = False
     # record one session, try again up to 3 times if a click misses
-    print(f"\n{level.upper()} session - starting in 3 seconds. Hands off the mouse! (corner = emergency stop)")
-    time.sleep(3)
+    print(f"\n{level.upper()} session - starting in 3 seconds. Hands off the mouse! (Press ESC = emergency stop)")
+    try:
+        safe_sleep(3)
+    except pyautogui.FailSafeException:
+        print("Emergency stop before start.")
+        return "stop"
     for attempt in range(3):
         result = run_session(level)
         if result != "missed":
