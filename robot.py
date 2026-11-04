@@ -333,6 +333,7 @@ def run_session(level):
             print("  Couldn't find the pink corner markers - assuming the page fills the screen.")
             print("  (Saved what the robot saw as calibration_debug.png)")
         safe_sleep(2.0)
+        pyautogui.click(*px((0.5, 0.9))) # click empty space so Chrome has focus (not recorded)
         # start from a random spot (recording only starts after Start is clicked)
         pyautogui.moveTo(*px((random.uniform(0.15, 0.85), random.uniform(0.15, 0.85))))
         Bot(level).run(order)
