@@ -1,3 +1,2 @@
-2026/11/04-00:15:53.242 fb14 Reusing MANIFEST C:\Users\jihye\Desktop\IAT360\DataCollectionPrograms\.browser_profile\Default\Local Storage\leveldb/MANIFEST-000001
-2026/11/04-00:15:53.244 fb14 Recovering log #3
-2026/11/04-00:15:53.248 fb14 Reusing old log C:\Users\jihye\Desktop\IAT360\DataCollectionPrograms\.browser_profile\Default\Local Storage\leveldb/000003.log 
+2026/11/04-00:27:25.501 116d0 Creating DB C:\Users\jihye\Desktop\IAT360\CVProjectGroup2\Group2_CVProject\.browser_profile\Default\Local Storage\leveldb since it was missing.
+2026/11/04-00:27:25.535 116d0 Reusing MANIFEST C:\Users\jihye\Desktop\IAT360\CVProjectGroup2\Group2_CVProject\.browser_profile\Default\Local Storage\leveldb/MANIFEST-000001
