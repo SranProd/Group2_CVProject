@@ -327,6 +327,7 @@ def run_session(level):
     # random 6 items, same as the page does for humans
     order = random.sample(list(ITEMS), N_CLICKS)
     s = Session(label="bot", level=level, extra={"order": ",".join(order)})
+    time.sleep(1.0)
     try:
         if not calibrate(): # wait for the page to open
             print("  Couldn't find the pink corner markers - assuming the page fills the screen.")
