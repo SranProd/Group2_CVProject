@@ -11,7 +11,7 @@ if __name__ == "__main__":
         batch=16,
         device="mps",
         name="baseline",
-        # Turned off so the model sees the drawings exactly as they are
+        # Turned off so the model sees the drawings exactly as they are (no images modified)
         auto_augment=None,
         hsv_h=0.0, hsv_s=0.0, hsv_v=0.0,
         fliplr=0.0,
