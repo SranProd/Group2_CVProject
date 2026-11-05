@@ -9,8 +9,11 @@ import shutil
 import subprocess
 import sys
 import time
+import urllib.request
 from pathlib import Path
 from urllib.parse import urlencode
+
+import websocket
 
 HERE = Path(__file__).resolve().parent
 PAGE = HERE / "collector.html"
@@ -81,8 +84,54 @@ class Session:
         self.proc = subprocess.Popen([
             find_browser(), f"--user-data-dir={profile}", "--no-first-run",
             "--no-default-browser-check", "--hide-crash-restore-bubble",
+            "--remote-debugging-port=0",
             "--start-fullscreen", "--new-window", url,
         ])
+        self._force_fullscreen(profile)
+
+    def _force_fullscreen(self, profile, timeout=20):
+        """macOS sometimes ignores --start-fullscreen, so ask Chrome directly.
+        Returns once the page fills the screen, has stopped resizing and has focus."""
+        end = time.time() + timeout
+        ws = None
+        while ws is None and time.time() < end:      # wait for Chrome and the page to be up
+            try:
+                port = (profile / "DevToolsActivePort").read_text().split()[0]
+                tabs = json.load(urllib.request.urlopen(f"http://127.0.0.1:{port}/json/list", timeout=2))
+                tab = next(t for t in tabs if t["type"] == "page" and "collector.html" in t["url"])
+                ws = websocket.create_connection(tab["webSocketDebuggerUrl"], timeout=5, suppress_origin=True)
+            except (OSError, ValueError, IndexError, StopIteration, websocket.WebSocketException):
+                time.sleep(0.2)
+
+        def send(method, **params):
+            ws.send(json.dumps({"id": 1, "method": method, "params": params}))
+            while True:
+                reply = json.loads(ws.recv())
+                if reply.get("id") == 1:
+                    return reply.get("result", {})
+
+        try:
+            last, since, asked = None, time.time(), 0
+            while ws and time.time() < end:
+                win = send("Browser.getWindowForTarget")
+                if win["bounds"].get("windowState") != "fullscreen" and time.time() - asked > 2:
+                    send("Browser.setWindowBounds", windowId=win["windowId"], bounds={"windowState": "fullscreen"})
+                    asked = time.time()
+                send("Page.bringToFront")
+                page = send("Runtime.evaluate", returnByValue=True, expression=
+                            "[innerWidth, innerHeight, screenX, screenY, screen.width, document.hasFocus()]")["result"]["value"]
+                if page != last:
+                    last, since = page, time.time()
+                if page[0] >= page[4] - 5 and page[5] and time.time() - since > 1:
+                    return True
+                time.sleep(0.2)
+        except (OSError, KeyError, websocket.WebSocketException):
+            pass
+        finally:
+            if ws:
+                ws.close()
+        print("  WARNING: couldn't make the window full screen. Don't keep this session.")
+        return False
 
     def new_file(self):
         """Return the session file once it has finished downloading, else None."""

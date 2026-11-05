@@ -16,6 +16,9 @@ def convert_json_to_csv(json_path):
     base_name = os.path.splitext(file_name)[0]
     file_lower = file_name.lower()
 
+    if "medium" in file_lower:  # We only use easy and hard
+        return
+
     try:
         with open(json_path, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -46,9 +49,9 @@ def convert_json_to_csv(json_path):
 
         if event_type in ["move", "mousemove", "pointermove"]:
             state = "Move"
-        elif event_type in ["click", "mousedown", "pointerdown", "pressed"]:
+        elif event_type in ["click", "down", "mousedown", "pointerdown", "pressed"]:
             state = "Pressed"
-        elif event_type in ["mouseup", "pointerup", "released"]:
+        elif event_type in ["up", "mouseup", "pointerup", "released"]:
             state = "Released"
         else:
             continue

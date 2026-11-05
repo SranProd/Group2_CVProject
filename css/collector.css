@@ -155,18 +155,6 @@ body {
 .card:hover .card-info h6 {
   color: #0012d7;
 }
-.pet-adoption-img {
-  background-image: url("../img/pet-adoption.png");
-}
-.le-cakery-img {
-  background-image: url("../img/leCakeryHome.png");
-}
-.permit-extension-img {
-  background-image: url("../img/studyPermitExtensionHome.png");
-}
-.canvas-img {
-  background-image: url("../img/canvasHome.png");
-}
 
 /* footer */
 .footer {
