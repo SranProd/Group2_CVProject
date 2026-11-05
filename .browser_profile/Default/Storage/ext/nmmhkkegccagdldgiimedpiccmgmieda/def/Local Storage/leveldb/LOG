@@ -1,3 +1,2 @@
-2026/11/04-14:00:47.053 36ad75f Reusing MANIFEST /Users/sukhmansran/Desktop/School Stuff/Fall 2026/IAT 360/Assignment Resources/Group2_CVProject/.browser_profile/Default/Storage/ext/nmmhkkegccagdldgiimedpiccmgmieda/def/Local Storage/leveldb/MANIFEST-000001
-2026/11/04-14:00:47.055 36ad75f Recovering log #3
-2026/11/04-14:00:47.057 36ad75f Reusing old log /Users/sukhmansran/Desktop/School Stuff/Fall 2026/IAT 360/Assignment Resources/Group2_CVProject/.browser_profile/Default/Storage/ext/nmmhkkegccagdldgiimedpiccmgmieda/def/Local Storage/leveldb/000003.log 
+2026/11/04-16:18:59.862 127e0 Creating DB C:\Users\jihye\Desktop\IAT360\CVProjectGroup2\Group2_CVProject\.browser_profile\Default\Storage\ext\nmmhkkegccagdldgiimedpiccmgmieda\def\Local Storage\leveldb since it was missing.
+2026/11/04-16:18:59.903 127e0 Reusing MANIFEST C:\Users\jihye\Desktop\IAT360\CVProjectGroup2\Group2_CVProject\.browser_profile\Default\Storage\ext\nmmhkkegccagdldgiimedpiccmgmieda\def\Local Storage\leveldb/MANIFEST-000001
