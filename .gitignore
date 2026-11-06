@@ -222,5 +222,6 @@ __marimo__/
 #additional ignores to keep security
 .browser_profile/
 missed_*.png
+calibration_debug.png
 dataset/
 .env
