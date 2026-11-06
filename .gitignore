@@ -225,4 +225,9 @@ missed_*.png
 calibration_debug.png
 dataset/
 .env
+
+# Training output
+*.pt
+*.cache
+!best_model.pt
 .DS_Store
