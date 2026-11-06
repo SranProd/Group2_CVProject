@@ -227,6 +227,6 @@ dataset/
 .env
 
 # Training output
-runs/
 *.pt
 *.cache
+!best_model.pt
