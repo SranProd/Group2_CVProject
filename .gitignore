@@ -225,3 +225,4 @@ missed_*.png
 calibration_debug.png
 dataset/
 .env
+.DS_Store
