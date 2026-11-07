@@ -2,7 +2,7 @@ from pathlib import Path
 from ultralytics import YOLO
 
 RUNS_DIR = str(Path(__file__).resolve().parent / "runs")
-RUN_NAME = "adamw_lr_0.0003_seed_1"  # Titles of each run
+RUN_NAME = "dropout_0.1"  # Titles of each run
 
 if __name__ == "__main__":
     model = YOLO("yolo26n-cls.pt")
@@ -12,9 +12,8 @@ if __name__ == "__main__":
         epochs=50,
         patience=10,
         imgsz=640,
-        optimizer="AdamW", lr0=0.0003,
-        seed=1,
         batch=16,
+        dropout=0.1,
         device="mps",
         project=RUNS_DIR,
         name=RUN_NAME,
