@@ -2,7 +2,7 @@
 
 from browser import Session
 
-# human session data and script
+# Records human sessions until you quit
 while True:
     print("\nOpening the test page... click the 6 highlighted items, then OK button") 
     s = Session(label="human")

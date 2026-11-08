@@ -48,7 +48,7 @@ body {
 }
 
 /* elements are positioned by their center, using % of the window
-   (positions are set in LAYOUT below, robot.py uses the same values) */
+   (positions are set in LAYOUT in js/collector.js, robot.py uses the same values) */
 .abs {
   position: absolute;
   transform: translate(-50%, -50%);

@@ -2,7 +2,7 @@ from pathlib import Path
 from ultralytics import YOLO
 
 RUNS_DIR = str(Path(__file__).resolve().parent / "runs")
-RUN_NAME = "adamw_lr_0.0003_seed_1"  # Titles of each run
+RUN_NAME = "adamw_lr_0.0003_seed_1"  # Name of the folder this run saves to inside runs
 
 if __name__ == "__main__":
     model = YOLO("yolo26n-cls.pt")
@@ -18,7 +18,7 @@ if __name__ == "__main__":
         device="mps",
         project=RUNS_DIR,
         name=RUN_NAME,
-        # Turned off so the model sees the drawings exactly as they are (no images modified)
+        # Turned off random changes (color, flip, zoom, erasing) so the drawings stay the same during training
         auto_augment=None,
         hsv_h=0.0, hsv_s=0.0, hsv_v=0.0,
         fliplr=0.0,

@@ -54,6 +54,7 @@ def draw_trajectory(csv_path, output_name, is_delbot=False):
             if time_diff <= 0: time_diff = 0.001 
             speed = distance / time_diff
             
+            # fast = red, medium = green, slow = blue (OpenCV colors are BGR)
             if speed > 1500:     color = (0, 0, 255)   
             elif speed > 400:    color = (0, 255, 0)   
             else:                color = (255, 0, 0)   

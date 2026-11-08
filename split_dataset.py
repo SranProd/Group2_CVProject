@@ -13,7 +13,7 @@ GROUPS = ["train", "val", "test"]
 SOURCES = {
     "human": [
         "ours_human",
-        "sapi",  # Before Delbot because its people stay whole, Delbot evens out the totals
+        "sapi",  # Goes before Delbot. Sapi people can't be split up, so Delbot fills in the rest to hit 60/20/20
         "delbot_human_circles_human_fast",
         "delbot_human_circles_human_pc1",
         "delbot_human_circles_human_pc2_pad",  # Before pc2 so it isn't counted as pc2

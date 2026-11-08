@@ -2,7 +2,7 @@ import os
 import json
 import csv
 
-# Dedicated folders for your group's custom collected data
+# Folders for our own collected data
 OUR_HUMAN_CSV_DIR = "our_collected_data/our_human_csvs"
 OUR_BOT_CSV_DIR = "our_collected_data/our_bot_csvs"
 
@@ -28,7 +28,7 @@ def convert_json_to_csv(json_path):
     if not isinstance(data, dict) or "events" not in data:
         return
 
-    # Route directly based on the filename prefix
+    # Sort into human or bot by the start of the file name
     label = str(data.get("label", "")).lower()
     if file_lower.startswith("human"):
         output_dir = OUR_HUMAN_CSV_DIR

@@ -33,7 +33,7 @@ def safe_sleep(duration):
         check_stop()
         time.sleep(min(0.02, max(0.0, end - time.perf_counter())))
 
-# positions as fractions of the page (same as LAYOUT in collector.html)
+# positions as fractions of the page (same as LAYOUT in js/collector.js)
 START   = (0.50, 0.62)
 # clickable items: (center, max x offset, max y offset) in pixels
 ITEMS = {
@@ -225,7 +225,7 @@ class Bot:
             elif style == "manhattan": # L-shaped path
                 f, L = manhattan_path(p0, target)
                 play_path(f, max(0.05, L / self.speed), "constant")
-            elif style == "stutter": # choppy(teleporty?) straight line
+            elif style == "stutter": # choppy straight line
                 play_path(line_path(p0, target)[0], dur, "constant", rate=self.stutter_rate)
             elif style == "line": # normal straight line
                 play_path(line_path(p0, target)[0], dur, "constant")

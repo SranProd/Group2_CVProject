@@ -9,11 +9,11 @@ import urllib.request
 from pathlib import Path
 from urllib.parse import urlencode
 
-import websocket #https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
+import websocket  # pip install websocket-client, used to control Chrome
 
 HERE = Path(__file__).resolve().parent
 PAGE = HERE / "collector.html" # test page 
-DATA = HERE / "our_json_data"   #All the recording are saved here
+DATA = HERE / "our_json_data"   # All the recordings are saved here
 
 
 def find_browser():
@@ -25,7 +25,7 @@ def find_browser():
         r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
         "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
         "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
-    ] # tries the usual path exists on Windows and Mac and return the first one which
+    ]  # Checks the usual Chrome and Edge paths on Windows and Mac and uses the first one it finds
     for c in candidates:
         if os.path.exists(c):
             return c
@@ -37,7 +37,7 @@ def find_browser():
 
 
 def _write_prefs(profile, download_dir):
-    """Set the download folder and mark the last exit as clean (no 'restore pages?' popup)."""
+    # Set the download folder and mark the last exit as clean (no restore pages popup)
     prefs_file = profile / "Default" / "Preferences"
     prefs_file.parent.mkdir(parents=True, exist_ok=True)
     prefs = {}
@@ -54,11 +54,7 @@ def _write_prefs(profile, download_dir):
 
 
 class Session:
-    """Usage:
-        s = Session(label="bot", level="easy")   # opens the page full screen
-        ... do the tasks ...
-        s.wait_for_file(); s.close()
-    """
+    # Opens the page full screen. After the tasks, call wait_for_file() then close()
 
     def __init__(self, label, level=None, extra=None):
         self.out_dir = DATA / label
@@ -86,8 +82,8 @@ class Session:
         self._force_fullscreen(profile)
 
     def _force_fullscreen(self, profile, timeout=20):
-        """macOS sometimes ignores --start-fullscreen, so ask Chrome directly.
-        Returns once the page fills the screen, has stopped resizing and has focus."""
+        # macOS sometimes ignores --start-fullscreen, so ask Chrome directly
+        # Returns once the page fills the screen, has stopped resizing and has focus
         end = time.time() + timeout
         ws = None
         while ws is None and time.time() < end:      # wait for Chrome and the page to be up
@@ -130,12 +126,12 @@ class Session:
         return False
 
     def new_file(self):
-        """Return the session file once it has finished downloading, else None."""
+        # Returns the session file once it has finished downloading, else None
         done = [p for p in self.out_dir.glob("*.json") if p not in self.before]
         return done[0] if done else None
 
     def wait_for_file(self, timeout=None):
-        """Wait until the page has saved its JSON (or the window was closed)."""
+        # Waits until the page has saved its JSON or the window was closed
         start = time.time()
         while timeout is None or time.time() - start < timeout:
             f = self.new_file()
