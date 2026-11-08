@@ -230,3 +230,5 @@ dataset/
 *.pt
 *.cache
 !best_model.pt
+# Mac Finder files
+.DS_Store
