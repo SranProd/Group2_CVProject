@@ -1,21 +1,4 @@
-"""
-Bot data collection.
-Uses pyautogui to do the same clicking task as the human version, so the page
-records it the same way. Sessions are saved to our_json_data/bot/.
 
-    python robot.py          asks for a level (e/m/h) and records one session each time
-    python robot.py hard     records one hard session and exits (or easy / medium)
-
-Levels:
-    easy   - very robotic: straight lines, teleporting, L-shaped paths, sudden speed
-             changes, choppy movement. same speed/pauses/clicks every time
-    medium - curves and arcs, eased speed, random delays, sometimes teleports
-    hard   - tries to look human: curved paths, speed depends on distance,
-             small shaking, overshoooting the target, random pauses
-
-Don't touch the mouse while it's running.
-To stop it immediately, press the ESC key (or move the mouse into a screen corner).
-"""
 import math
 import random
 import sys
