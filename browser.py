@@ -1,8 +1,4 @@
-"""
-Shared helper: opens collector.html in its own full-screen Chrome/Edge window
-(a separate profile, so it never touches your normal browser) and saves the
-downloaded session file straight into the right data folder.
-"""
+
 import json
 import os
 import shutil
@@ -13,11 +9,11 @@ import urllib.request
 from pathlib import Path
 from urllib.parse import urlencode
 
-import websocket
+import websocket #https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
 
 HERE = Path(__file__).resolve().parent
-PAGE = HERE / "collector.html"
-DATA = HERE / "our_json_data"     
+PAGE = HERE / "collector.html" # test page 
+DATA = HERE / "our_json_data"   #All the recording are saved here
 
 
 def find_browser():
@@ -29,7 +25,7 @@ def find_browser():
         r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
         "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
         "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
-    ]
+    ] # tries the usual path exists on Windows and Mac and return the first one which
     for c in candidates:
         if os.path.exists(c):
             return c
